@@ -133,7 +133,8 @@ export default function PeriodBufferManager(
     offlineRetry? : number;
     textTrackOptions? : ITextTrackSourceBufferOptions;
     manualBitrateSwitchingMode : "seamless"|"direct";
-  }
+  },
+  videoElement : HTMLMediaElement
 ) : Observable<IPeriodBufferManagerEvent> {
   const { manifest, initialPeriod } = content;
 
@@ -590,7 +591,8 @@ export default function PeriodBufferManager(
       wantedBufferAhead$,
       { manifest, period, adaptation },
       abrManager,
-      options
+      options,
+      videoElement
     ).pipe(catchError((error : Error) => {
       // non native buffer should not impact the stability of the
       // player. ie: if a text buffer sends an error, we want to
